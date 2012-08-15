@@ -2,6 +2,7 @@ import struct
 from time import time
 from numpy import mean
 import serial
+import bluetooth
 """
 
 This is a Driver Class for the Neurosky Mindwave. The Mindwave consists of a headset and an usb dongle.
@@ -33,14 +34,19 @@ class Parser:
 		self.state ="initializing"
 		self.raw_file = None
 		self.esense_file = None
-		self.dongle = serial.Serial('/dev/ttyUSB0',  115200,timeout=0.001)
+		self.mindwaveMobileSocket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+        	mindwaveMobileAddress = '9C:B7:0D:72:CD:02';
+        	try:
+                	self.mindwaveMobileSocket.connect((mindwaveMobileAddress, 1))
+            	except bluetooth.btcommon.BluetoothError as error:
+                	print "Could not connect: ", error, "; Retrying in 5s..."
 		
 	def update(self):
-		bytes = self.dongle.read(1000)
+		bytes = self.mindwaveMobileSocket.recv(1000)
 		for b in bytes:
 			self.parser.send(ord(b))	# Send each byte to the generator
 	def write_serial(self, string):
-		self.dongle.write(string)
+		self.mindwaveMobileSocket.send(string)
 	
 	def start_raw_recording(self, file_name):
 		self.raw_file = file(file_name, "wt")
