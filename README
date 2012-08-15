@@ -1,3 +1,4 @@
+FORK: This is just a small change of the original at https://github.com/akloster/python-mindwave for the Mindwave Mobile. This uses Bluetooth to communicate directly instead of using a serial port like Mindwave.
 This is a set of simple scripts that interface with the Neurosky Mindwave.
 
 The Mindwave is a kind of Headset that can record EEG brain waves.
