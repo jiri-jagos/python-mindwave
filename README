@@ -1,3 +1,5 @@
+FORK: This works also for NeuroSky MindBand device
+
 FORK: This is just a small change of the original at https://github.com/akloster/python-mindwave for the Mindwave Mobile. The change is using Bluetooth to communicate directly with the mindwave mobile headset instead of using a serial port like for the Mindwave.
 
 This is a set of simple scripts that interface with the Neurosky Mindwave.
